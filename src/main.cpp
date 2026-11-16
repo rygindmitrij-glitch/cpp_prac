@@ -1,5 +1,7 @@
 #include "DynamicArray.h"
 #include <iostream>
+#include <stdexcept>
+#include <new>
 using namespace std;
 
 int main () {
@@ -20,4 +22,22 @@ int main () {
     arr.add(99);
     arr.printsize();
     arr.printValues();
+
+    try {
+        arr.get(99);
+    } catch (const out_of_range& error){
+        cout << error.what() << "\n";
+    }
+
+    try{
+        arr.set(1,101);
+    } catch (const invalid_argument& error){
+        cout << error.what() << "\n";
+    }
+
+    try{
+        throw bad_alloc{};
+    } catch (const bad_alloc& error){
+        cout << error.what() << "\n";
+    }
 }

@@ -1,5 +1,6 @@
 #include "DynamicArray.h"
 #include <iostream>
+#include <stdexcept>
 using namespace std;
 
 DynamicArray :: DynamicArray(int size){
@@ -24,13 +25,11 @@ DynamicArray :: DynamicArray(int size){
     void DynamicArray :: set (int i, int value){
         if (i < 0 || i >= size_)
         {
-            cout << "такого индекса в массиве нет\n";
-            return;
+            throw out_of_range("такого индекса в массиве нет");
         }
         if (value > 100 || value < -100)
         {
-            cout << "такое значение не может быть записано в массив\n";
-            return;
+           throw invalid_argument("такое значение не может быть записано в массив");
         }
         
         data_[i] = value;
@@ -39,8 +38,7 @@ DynamicArray :: DynamicArray(int size){
     int DynamicArray :: get(int i){
         if (i < 0 || i >= size_)
         {
-            cout << "такого индекса в массиве нет\n";
-            return 0;
+            throw out_of_range("такого индекса в массиве нет");
         }
         return data_[i];
     }
@@ -57,8 +55,7 @@ DynamicArray :: DynamicArray(int size){
     void DynamicArray ::  add(int value){
         if (value > 100 || value < -100)
         {
-            cout << "такое значение не может быть записано в массив\n";
-            return;
+            throw invalid_argument("такое значение не может быть записано в массив");
         }
         int* dataVREM = 0;
         dataVREM = new int[size_ + 1]{};
