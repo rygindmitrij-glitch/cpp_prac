@@ -2,15 +2,17 @@
 #include <iostream>
 #include <stdexcept>
 #include <new>
+#include <typeinfo>
+#include <string>
 using namespace std;
 
 int main () {
-    DynamicArray arr(4);
+    DynamicArray<int> arr(4);
     arr.printValues();
-    DynamicArray copy(arr);
+    DynamicArray<int> copy(arr);
     arr.set (2,100);
     arr.printValues();
-    DynamicArray vtoroy(2);
+    DynamicArray<int> vtoroy(2);
     vtoroy.set (1,100);
     vtoroy.set (0,100);
     arr.sub(vtoroy);
@@ -40,4 +42,30 @@ int main () {
     } catch (const bad_alloc& error){
         cout << error.what() << "\n";
     }
+
+    DynamicArray<string> words(2);
+    words.set(0, "привет");
+    words.set(1, "мир");
+    words.printValues();
+    cout << words << "\n";
+
+    DynamicArray<double> A(2);
+    DynamicArray<double> B(2);
+    A.set(0, 3.0);
+    A.set(1, 4.0);
+    cout << A.distance(B) << "\n";
+    DynamicArray<double> C(1);
+
+    try{
+        A.distance(C);
+    } catch (const invalid_argument& error){
+        cout << error.what() << "\n";
+    }
+
+    try{
+        words.distance(words);
+    } catch (const bad_typeid& error){
+        cout << error.what() << "\n";
+    }
+
 }
